@@ -45,6 +45,9 @@ export default function MusicPlayer() {
       setIsLoading(true)
       try {
         const fetchedSongs = await getSongs()
+        console.log('====================================');
+        console.log(fetchedSongs);
+        console.log('====================================');
         setSongs(fetchedSongs)
       } catch (error) {
         console.error("Error fetching songs:", error)
@@ -112,6 +115,8 @@ export default function MusicPlayer() {
   // File Input Change Handler
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
+    console.log(file);
+    
     if (!file) return
 
     // Validate file type
@@ -150,36 +155,46 @@ export default function MusicPlayer() {
 
   // Add Song Handler
   const handleAddSong = async () => {
-    // Validation
-    if (!selectedFile && !newSongName.trim()) {
-      setErrorMessage("Please select an audio file and enter a song name")
+    if (!selectedFile) {
+      setErrorMessage("Please select an audio file")
       return
     }
-
+  
     setIsLoading(true)
+  
     try {
-      // Prepare file for upload (in a real app, you'd upload to cloud storage)
-      const audioFileUrl = filePreviewUrl || URL.createObjectURL(selectedFile!)
-
-      // Create song
+      // Create FormData and append the file
+      const formData = new FormData()
+      formData.append("file", selectedFile)
+  
+      // Send file to Next.js API Route
+      const response = await fetch("/api/upload", {
+        method: "POST",
+        body: formData
+      })
+  
+      const data = await response.json()
+      if (!data.success) throw new Error("Upload failed")
+  
+      const audioUrl = data.url // ✅ This is the real URL
+  
+      // Store in the database
       const newSong = await createSong({
         name: newSongName.trim(),
         artist: newSongArtist.trim() || "Unknown Artist",
-        audioFile: audioFileUrl
+        audioFile: audioUrl // ✅ Real file URL
       })
-      
-      // Update songs list
+  
       setSongs(prev => [...prev, newSong])
-      
-      // Reset form
       resetAddSongForm()
     } catch (error) {
       console.error("Error adding song:", error)
-      setErrorMessage("Failed to add song. Please try again.")
+      setErrorMessage("Failed to add song")
     } finally {
       setIsLoading(false)
     }
   }
+  
 
   // Reset Add Song Form
   const resetAddSongForm = () => {
