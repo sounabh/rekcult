@@ -1,0 +1,34 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url  	    = env("DATABASE_URL")
+  // uncomment next line if you use Prisma <5.10
+  // directUrl = env("DATABASE_URL_UNPOOLED")
+}
+
+
+
+model Song {
+  id         String  @id @default(uuid())  // Unique ID for the song
+  name       String  // Song name
+  artist     String  // Artist name
+  audioFile  String  // Path or URL to the audio file
+  createdAt  DateTime @default(now()) // Timestamp
+  
+}
+
+model Photo {
+  id        String   @id @default(cuid())
+  caption   String
+  dataUrl   String   @db.Text // Large text field to store base64
+  createdAt DateTime @default(now())
+}

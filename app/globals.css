@@ -3,25 +3,75 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --background: #000000;
+  --foreground: #ffc0cb;
+  --primary: #ec4899;
+  --primary-foreground: #ffffff;
+  --secondary: #9333ea;
+  --secondary-foreground: #ffffff;
+  --muted: #581c87;
+  --muted-foreground: #ffc0cb;
+  --accent: #9333ea;
+  --accent-foreground: #ffffff;
+  --destructive: #ff0000;
+  --destructive-foreground: #ffffff;
+  --border: #6b21a8;
+  --input: #6b21a8;
+  --ring: #ec4899;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: black;
+  color: #ffc0cb;
+  /* The font will be applied through the layout.tsx */
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+.neon-text {
+  text-shadow: 0 0 5px #ff00ff, 0 0 10px #ff00ff, 0 0 15px #ff00ff;
+}
+
+.neon-box {
+  box-shadow: 0 0 5px #ff00ff, 0 0 10px #ff00ff;
+}
+
+.pixel-border {
+  box-shadow: 0 0 0 2px #ff00ff, 0 0 0 4px #000000, 0 0 0 6px #9900cc;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scrollbar-thumb-purple-700::-webkit-scrollbar-thumb {
+  background: #6d28d9;
+  border-radius: 4px;
+}
+
+.scrollbar-track-black::-webkit-scrollbar-track {
+  background: #000000;
+}
+
+@keyframes glitch {
+  0% {
+    text-shadow: 0.05em 0 0 #ff00ff, -0.05em -0.025em 0 #00ffff;
+    transform: translate(0.025em, 0.0125em);
+  }
+  15% {
+    text-shadow: -0.05em -0.025em 0 #ff00ff, 0.025em 0.025em 0 #00ffff;
+  }
+  50% {
+    text-shadow: 0.05em 0.05em 0 #ff00ff, 0.05em 0 0 #00ffff;
+    transform: translate(0, 0);
+  }
+  100% {
+    text-shadow: -0.05em 0 0 #ff00ff, -0.025em -0.05em 0 #00ffff;
+    transform: translate(-0.025em, -0.0125em);
   }
 }
+
+.glitch-text {
+  animation: glitch 3s infinite alternate;
+}
+
