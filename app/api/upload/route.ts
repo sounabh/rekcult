@@ -26,7 +26,7 @@ export async function POST(req: NextRequest) {
     const buffer = Buffer.from(await file.arrayBuffer())
     
     // Generate Unique Filename
-    const filename = `${Date.now()}-${file.name}`
+    const filename = `${Date.now()}-${file}`
     const filePath = path.join(uploadDir, filename)
 
     // Save File to `/public/uploads`
