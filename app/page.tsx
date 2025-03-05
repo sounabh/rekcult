@@ -283,7 +283,7 @@ function HomeSection() {
             <p className="leading-relaxed">
               Explore our love letters, browse through our memories in the gallery, listen to our favorite songs, or
               play some cute games together. Every pixel of this site was crafted with love, just like every moment
-              we've shared together.
+              weve shared together.
             </p>
 
             <div className="pt-4 text-center">
