@@ -304,7 +304,7 @@ function LoveQuiz() {
           {score === questions.length ? (
             <p className="text-green-300 mb-4">Perfect score! You know me so well! ❤️</p>
           ) : score >= questions.length / 2 ? (
-            <p className="text-pink-300 mb-4">Not bad! We're definitely on the same page! 💕</p>
+            <p className="text-pink-300 mb-4">Not bad! We,re definitely on the same page! 💕</p>
           ) : (
             <p className="text-pink-400 mb-4">Looks like we have more to learn about each other! 💌</p>
           )}
